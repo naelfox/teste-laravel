@@ -14,7 +14,7 @@ class ProdutoRequest extends FormRequest
         return [
             'nome' =>  'required|between:3,128',
             'descricao' =>  'required|between:3,2000',
-            'preco' => 'required'
+            'preco' => 'required|regex:/^[\d\.,]+$/'
         ];
     }
 
@@ -24,6 +24,7 @@ class ProdutoRequest extends FormRequest
             'nome.required' => 'O campo Nome é obrigatório',
             'descricao.required' => 'Descrição é obrigatório',
             'preco.required' => 'É necessário ao menos algum valor',
+            'preco.regex' => 'O campo preço possui caracteres inválidos',
             'between' => 'É preciso ter entre :min a :max caracteres',
         ];
     }

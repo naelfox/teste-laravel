@@ -17,7 +17,7 @@ class VendaController extends Controller
     public function index()
     {
 
-        $vendas = Venda::with(['cliente'])->withCount(['vendaProdutos'])->orderBy('created_at', 'desc')->paginate(5);
+        $vendas = Venda::with(['cliente', 'produtos'])->withCount(['vendaProdutos'])->orderBy('created_at', 'desc')->paginate(5);
 
         // dd($vendas);
         return view(
@@ -40,7 +40,7 @@ class VendaController extends Controller
 
 
         return view('admin.vendas.create-edit-cliente', [
-            'title' => 'Cadastrar Venda',
+            'title' => 'Cadastrar Cliente',
             'clientes' => $clientes
         ]);
     }
@@ -90,14 +90,15 @@ class VendaController extends Controller
      */
     public function edit(Venda $venda)
     {
-        $clientes = Cliente::all();
-        $produtos = Produto::all();
+        $cliente = Cliente::findOrFail($venda->cliente_id);
 
-        return view('admin.vendas.create-edit', [
+        $clientes = Cliente::all();
+
+        return view('admin.vendas.create-edit-cliente', [
             'venda' => $venda,
+            'cliente' => $cliente,
             'clientes' => $clientes,
-            'produtos' => $produtos,
-            'title' => 'Editar Venda',
+            'title' => 'Mudar o cliente da venda',
         ]);
     }
 
@@ -117,7 +118,7 @@ class VendaController extends Controller
         $venda->update($validated);
 
 
-        return redirect()->route('vendas.index')->with('success', 'Dados da venda atualizados com sucesso!');
+        return redirect()->route('vendas.index')->with('success', 'Cliente alterado com sucesso!');
     }
 
     /**

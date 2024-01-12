@@ -5,8 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <a href="{{ route('vendas.index') }}" class="btn btn-primary"><i class="fa-solid fa-chevron-left"></i> Voltar a
-                lista</a>
+            <x-back-button :route="@route('vendas.index')"></x-back-button>
         </div>
         <div class="col-md-6 text-md-end">
             <h5>{{ $title }} </h5>

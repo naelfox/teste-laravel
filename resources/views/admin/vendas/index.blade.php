@@ -19,6 +19,8 @@
 
             <x-slot:body>
 
+
+
                 @foreach ($vendas as $venda)
                     <tr>
 
@@ -29,15 +31,24 @@
                         <td>{{ $venda->venda_produtos_count }}</td>
                         <td>{{ $venda->created_at->format('d/m/Y à\s H:i:s') }}</td>
                         <td>
-                            <a href="{{ route('vendas.edit', $venda) }}"><i class="fa-solid fa-pen"></i> Editar</a>
+                            <a href="{{ route('vendas.edit', $venda) }}"><i class="fa-solid fa-people-arrows"></i> Mudar
+                                cliente</a>
+                            <a href="{{ route('venda.produtos.create', $venda) }}"><i class="fa-solid fa-pen"></i> Editar
+                                produtos</a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $loop->iteration }}"><i
                                     class="fa-solid fa-trash"></i> Excluir</a>
 
                             <x-modal-delete :route="@route('vendas.destroy', $venda)" target="modalDelete{{ $loop->iteration }}" :item="$venda->nome">
 
                                 <p>N° Venda: {{ $venda->id }}</p>
-                                <p>Pedido do cliente: {{ $venda->produto_id }}</p>
-                                <p>Produtos: {{ $venda->produto_id }}</p>
+                                <p>Pedido do cliente: {{ $venda->cliente->nome }}</p>
+                                <p>{{ $venda->produtos->count() > 1 ? "Produtos" : "Produto" }}:</p>
+                                <ul>
+                                    @foreach ($venda->produtos as $produto)
+                                        <li>{{ $produto->nome }}</li>
+                                    @endforeach
+
+                                </ul>
                             </x-modal-delete>
 
 
