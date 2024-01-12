@@ -48,11 +48,10 @@
                     </p>
 
 
-                    <p class="card-text"><strong>Valor total:</strong> R$ {{ number_format($total, 2, ',', '.') }}</p>
+                    <p class="card-text"><strong>Valor total:</strong> R$ {{  number_format($total, 2, ',', '.') }}</p>
 
                     <p class="card-text"><strong>Criado em:</strong> {{ $venda->created_at->format('d/m/Y à\s H:i:s') }}</p>
-                    <p class="card-text"><strong>Última atualização:</strong>
-                        {{ $venda->updated_at->format('d/m/Y à\s H:i:s') }}</p>
+
 
 
                     <a href="{{ route('vendas.edit', $venda->id) }}" class="btn btn-primary">Editar</a>
